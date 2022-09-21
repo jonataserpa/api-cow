@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int    @id @default(autoincrement())
+  name        String
+  email       String
+  phone       String
+  companyId   Int
+  dateborn    String
+  radiogender String
+
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  deleteAt DateTime?
+  address  Address[]
+  Company  Company   @relation(fields: [companyId], references: [id])
+
+  @@index([name])
+  @@map("users")
+}
+
+model Company {
+  id           Int    @id @default(autoincrement())
+  reasonsocial String
+  namefantasy  String
+  CNPJ         String
+  phone        String
+
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  deleteAt DateTime?
+  address  Address[]
+  User     User[]
+  Payment  Payment[]
+  Receipt  Receipt[]
+
+  @@index([reasonsocial])
+  @@map("companys")
+}
+
+model Address {
+  id                 String @id @default(uuid())
+  cep                String
+  adrees             String
+  number_end         String
+  state              String
+  city               String
+  user_id            Int?
+  company_id_address Int?
+
+  trail   User?    @relation(fields: [user_id], references: [id])
+  company Company? @relation(fields: [company_id_address], references: [id])
+
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  deleteAt DateTime?
+
+  @@map("address")
+}
+
+model Payment {
+  id          Int           @id @default(autoincrement())
+  description String
+  companyId   Int
+  value       String?
+  observacion String?
+  datedue     DateTime?
+  typepayment String?
+  status      PaymentStatus @default(PAYABLE)
+
+  Company Company @relation(fields: [companyId], references: [id])
+
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  deleteAt DateTime?
+
+  @@index([description])
+  @@map("payments")
+}
+
+model Receipt {
+  id          Int           @id @default(autoincrement())
+  description String
+  companyId   Int
+  value       String?
+  observacion String?
+  status      PaymentStatus @default(RECEIVABLE)
+
+  Company Company @relation(fields: [companyId], references: [id])
+
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  deleteAt DateTime?
+
+  @@index([description])
+  @@map("receipts")
+}
+
+model Children {
+  id          String    @id @default(uuid())
+  name        String?
+  dateborn    DateTime?
+  namefather  String?
+  proprietary String?
+  observacion String?
+
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+  deleteAt  DateTime?
+  cattlesId Int?
+
+  trail Cattles? @relation(fields: [cattlesId], references: [id])
+
+  @@map("childrens")
+}
+
+model Cattles {
+  id          Int        @id @default(autoincrement())
+  name        String
+  dateborn    DateTime?
+  namefather  String?
+  proprietary String?
+  observacion String?
+  children    Children[]
+
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  deleteAt DateTime?
+
+  @@index([name])
+  @@map("cattles")
+}
+
+enum PaymentStatus {
+  PAYABLE
+  PAIDOUT
+  RECEIVABLE
+  RECEIVED
+}
