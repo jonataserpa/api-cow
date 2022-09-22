@@ -16,9 +16,9 @@ async function bootstrap() {
   
   buildSwagger(app);
 
-  await app.listen(process.env.API_PORT || 3000);
+  await app.listen(process.env.PORT || 3000);
 
-  logger.log(`Server running in PORT ${process.env.API_PORT || 3000}`);
+  logger.log(`Server running in PORT ${process.env.PORT || 3000}`);
   logger.log(`Server running with PREFIX /${process.env.API_PREFIX}`);
 }
 bootstrap();
