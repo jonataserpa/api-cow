@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "API Finances",
   "author": "",
-  "main": "node dist/main.ts",
   "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
