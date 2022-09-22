@@ -1,5 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Query } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { CreateReceiptDto } from '../dto/create-receipt.dto';
 import { UpdateReceiptDto } from '../dto/update-receipt.dto';
 import { ReceiptService } from '../services/receipt.service';
@@ -58,8 +74,8 @@ export class ReceiptController {
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  update(@Param('id') id: number, @Body() UpdateReceiptDto: UpdateReceiptDto) {
-    return this.receiptService.update(id, UpdateReceiptDto);
+  update(@Param('id') id: number, @Body() updateReceiptDto: UpdateReceiptDto) {
+    return this.receiptService.update(id, updateReceiptDto);
   }
 
   @Delete(':id')

@@ -1,5 +1,21 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, Put } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { CreateCattleDto } from '../dto/create-cattle.dto';
 import { UpdateCattleDto } from '../dto/update-cattle.dto';
 import { CattlesService } from '../services/cattles.service';
@@ -58,8 +74,8 @@ export class CattlesController {
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  update(@Param('id') id: number, @Body() UpdateCattleDto: UpdateCattleDto) {
-    return this.cattlesService.update(id, UpdateCattleDto);
+  update(@Param('id') id: number, @Body() updateCattleDto: UpdateCattleDto) {
+    return this.cattlesService.update(id, updateCattleDto);
   }
 
   @Delete(':id')

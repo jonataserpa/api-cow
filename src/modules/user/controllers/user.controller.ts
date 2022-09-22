@@ -1,5 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import accessProfileConstants from 'src/config/constants/accessProfile.constants';
 import { AccessControl } from 'src/utils/decorators/accessControl.decorator';
 import { UserCreateDto } from '../dto/userCreate.dto';
@@ -35,8 +53,16 @@ export class UserController {
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  findAll(@Query('skip') skip: string, @Query('take') take: string, @Query('filter') filter: string) {
-    return this.moduleService.findAll({skip: Number(skip), take: Number(take), filter: filter });
+  findAll(
+    @Query('skip') skip: string,
+    @Query('take') take: string,
+    @Query('filter') filter: string,
+  ) {
+    return this.moduleService.findAll({
+      skip: Number(skip),
+      take: Number(take),
+      filter: filter,
+    });
   }
 
   @Get(':id')
@@ -65,7 +91,10 @@ export class UserController {
   @Delete(':id')
   @AccessControl(accessProfileConstants.PERMISSIONS.REMOVE_USER)
   @ApiOperation({ summary: 'Delete an user' })
-  @ApiOkResponse({ description: 'User deleted successfully', type: UserCreateDto })
+  @ApiOkResponse({
+    description: 'User deleted successfully',
+    type: UserCreateDto,
+  })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
   remove(@Param('id') id: number) {

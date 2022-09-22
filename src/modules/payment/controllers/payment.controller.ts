@@ -1,5 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { CreatePaymentDto } from '../dto/create-payment.dto';
 import { UpdatePaymentDto } from '../dto/update-payment.dto';
 import { PaymentService } from '../services/payment.service';
@@ -58,8 +74,8 @@ export class PaymentController {
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  update(@Param('id') id: number, @Body() UpdatePaymentDto: UpdatePaymentDto) {
-    return this.paymentService.update(id, UpdatePaymentDto);
+  update(@Param('id') id: number, @Body() updatePaymentDto: UpdatePaymentDto) {
+    return this.paymentService.update(id, updatePaymentDto);
   }
 
   @Delete(':id')

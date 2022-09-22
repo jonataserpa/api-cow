@@ -3,13 +3,21 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Query,
   Put,
 } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { CompanyService } from '../services/company.service';
@@ -71,8 +79,8 @@ export class CompanyController {
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error' })
-  update(@Param('id') id: number, @Body() UpdateCompanyDto: UpdateCompanyDto) {
-    return this.companyService.update(id, UpdateCompanyDto);
+  update(@Param('id') id: number, @Body() updateCompanyDto: UpdateCompanyDto) {
+    return this.companyService.update(id, updateCompanyDto);
   }
 
   @Delete(':id')
