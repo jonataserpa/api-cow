@@ -93,5 +93,9 @@
   "directories": {
     "test": "test"
   },
-  "keywords": []
+  "keywords": [],
+  "engines": {
+    "node": "16.13.2",
+    "npm": "8.18.0"
+  }
 }
