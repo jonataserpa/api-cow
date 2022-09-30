@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { MessagesHelper } from 'src/config/constants/messages.helpers';
 // import { HttpService } from '@nestjs/axios';
 // import { firstValueFrom } from 'rxjs';
 
@@ -24,7 +25,6 @@ const users = [
     role: 'user',
   },
 ];
-//bcrypt
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService) {}
@@ -66,10 +66,9 @@ export class AuthService {
     );
 
     if (!user) {
-      throw new Error('User not found');
+      throw new UnauthorizedException(MessagesHelper.PASSWORD_OR_EMAIL_INVALID);
     }
 
     return user;
   }
 }
-//auth0 - jsonwebtoken

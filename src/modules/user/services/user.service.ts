@@ -18,7 +18,7 @@ export class UserService {
         companyId: userDto.companyId,
         address: {
           createMany: {
-            data: userDto.address, 
+            data: userDto.address,
           },
         },
       },
@@ -101,7 +101,7 @@ export class UserService {
         email: userDto.email,
         phone: userDto.phone,
         radiogender: userDto.radiogender,
-        companyId: userDto.companyId
+        companyId: userDto.companyId,
       },
       where: { id },
     });

@@ -1,16 +1,18 @@
 import { RoleGuard } from '../role.guard';
-import { JwtGuard } from './jwt.guard';
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { Role } from '../role.decorator';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from '../services/auth.service';
+import { JwtGuard } from '../auth/jwt.guard';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @UseGuards(AuthGuard('local'))
   @Post('login')
-  login(@Body() body) {
-    return this.authService.login(body.username, body.password);
+  async login(@Body() body) {
+    return await this.authService.login(body.username, body.password);
   }
 
   @Role('admin')

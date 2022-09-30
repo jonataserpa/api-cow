@@ -1,13 +1,20 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
-import { JwtStrategyService } from './jwt-strategy/jwt-strategy.service';
+import { PassportModule } from '@nestjs/passport';
+import { UserModule } from '../user/user.module';
+import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
+import { JwtStrategyService } from './strategies/jwt/jwt-strategy.service';
+import { LocalStrategy } from './strategies/local/local.strategy';
 
 @Module({
   imports: [
     HttpModule,
+    ConfigModule.forRoot(),
+    UserModule,
+    PassportModule,
     JwtModule.register({
       secret: 'abcd123456',
       signOptions: {
@@ -16,6 +23,6 @@ import { JwtStrategyService } from './jwt-strategy/jwt-strategy.service';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategyService],
+  providers: [AuthService, LocalStrategy, JwtStrategyService],
 })
 export class AuthModule {}

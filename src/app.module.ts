@@ -10,8 +10,12 @@ import { ReceiptModule } from './modules/receipt/receipt.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    AuthModule, 
-    UserModule, CompanyModule, CattlesModule, PaymentModule, ReceiptModule
+    AuthModule,
+    UserModule,
+    CompanyModule,
+    CattlesModule,
+    PaymentModule,
+    ReceiptModule,
   ],
   controllers: [],
   providers: [],
